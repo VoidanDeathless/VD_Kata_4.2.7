@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: #644bff;
+  padding: 0 20px;
+}
+
+::selection {
+  color: #fff;
+  background: #664AFF;
+}
+
+.app {
+  max-width: 450px;
+  margin: 150px auto;
+  position: relative;
+  padding-top: 265px;
+}
+
+.app__form {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.12);
+}
+
+.app__search {
+  height: 55px;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0 24px 0 24px;
+  font-size: 18px;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.app__autocomplete-list {
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.app__autocomplete-item {
+  list-style: none;
+  padding: 8px 12px;
+  display: none;
+  width: 100%;
+  cursor: default;
+  border-radius: 3px;
+}
+
+.app__form--active .app__autocomplete-list {
+  padding: 10px 8px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.app__form--active .app__autocomplete-item {
+  display: block;
+}
+
+.app__autocomplete-item:hover {
+  background: #efefef;
+}
+
+.app__search-result-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.app__search-result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  list-style: none;
+  padding: 8px 12px;
+  width: 100%;
+  cursor: default;
+  border-radius: 3px;
+}
+
+.app__search-result-remove {
+  font-size: 2rem;
+  cursor: pointer;
+}
