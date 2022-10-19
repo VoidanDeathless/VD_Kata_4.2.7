@@ -7,29 +7,25 @@ const searchResult = app.querySelector('.app__search-result-list')
 searchInput.addEventListener('input', () => {
     if (searchInput.value) {
         debouncedSearch(searchInput.value)
-    } else {
-        clearAutocomplete()
-    }
+        return
+    } 
+    clearAutocomplete()
 })
 
 autocomplete.addEventListener('click', (event) => {
-    if (event.target.className === 'app__autocomplete-item') {
-        addSearchResultItem(event.target.dataset)
-        searchInput.value = ''
-        clearAutocomplete()
-    }
+    if (event.target.className === 'autocomplete-button') addSearchResultItem(event.target.dataset)
 })
 
 searchResult.addEventListener('click', (event) => {
-    if (event.target.className === 'app__search-result-remove') event.target.parentElement.remove()
+    if (event.target.className === 'remove-button') event.target.parentElement.remove()
 })
 
 function showAutocomplete(items) {
-    if (items.length) {
-        clearAutocomplete()
-        items.forEach((e) => autocomplete.appendChild(createAutocompleteItem(e)))
-        form.classList.add('app__form--active')
-    }
+    if (!items.length) return
+
+    clearAutocomplete()
+    items.forEach((e) => autocomplete.appendChild(createAutocompleteItem(e)))
+    form.classList.add('app__form--active')
 }
 
 function clearAutocomplete() {
@@ -42,22 +38,29 @@ function clearAutocomplete() {
 function createAutocompleteItem(dataset) {
     let item = document.createElement('li')
     item.classList.add('app__autocomplete-item')
-    item.textContent = dataset.name
-    item.dataset.name = dataset.name
-    item.dataset.owner = dataset.owner
-    item.dataset.stars = dataset.stars
+    button = document.createElement('button')
+    button.classList.add('autocomplete-button')
+    button.textContent = dataset.name
+    button.dataset.name = dataset.name
+    button.dataset.owner = dataset.owner
+    button.dataset.stars = dataset.stars
+    item.appendChild(button)
     return item
 }
 
 function addSearchResultItem(dataset) {
     let item = document.createElement('li')
     item.classList.add('app__search-result-item')
-    item.innerHTML = `Name: ${dataset.name}<br>Owner: ${dataset.owner}<br>Stars: ${dataset.stars}`
-    let remove = document.createElement('span')
-    remove.classList.add('app__search-result-remove')
+    text = document.createElement('div')
+    text.classList.add('app__search-result-text')
+    text.innerHTML = `Name: ${dataset.name}<br>Owner: ${dataset.owner}<br>Stars: ${dataset.stars}`
+    let remove = document.createElement('button')
+    remove.classList.add('remove-button')
     remove.textContent = '❌'
-    item.appendChild(remove)
+    item.append(text, remove)
     searchResult.appendChild(item)
+    searchInput.value = ''
+    clearAutocomplete()
 }
 
 function search(value) {
